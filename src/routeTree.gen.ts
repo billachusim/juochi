@@ -9,38 +9,85 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ChatRouteImport } from './routes/chat'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DibiasIndexRouteImport } from './routes/dibias.index'
+import { Route as DibiasIdRouteImport } from './routes/dibias.$id'
+import { Route as BookIdRouteImport } from './routes/book.$id'
 
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DibiasIndexRoute = DibiasIndexRouteImport.update({
+  id: '/dibias/',
+  path: '/dibias/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DibiasIdRoute = DibiasIdRouteImport.update({
+  id: '/dibias/$id',
+  path: '/dibias/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookIdRoute = BookIdRouteImport.update({
+  id: '/book/$id',
+  path: '/book/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/chat': typeof ChatRoute
+  '/book/$id': typeof BookIdRoute
+  '/dibias/$id': typeof DibiasIdRoute
+  '/dibias/': typeof DibiasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/chat': typeof ChatRoute
+  '/book/$id': typeof BookIdRoute
+  '/dibias/$id': typeof DibiasIdRoute
+  '/dibias': typeof DibiasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/chat': typeof ChatRoute
+  '/book/$id': typeof BookIdRoute
+  '/dibias/$id': typeof DibiasIdRoute
+  '/dibias/': typeof DibiasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/chat' | '/book/$id' | '/dibias/$id' | '/dibias/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/chat' | '/book/$id' | '/dibias/$id' | '/dibias'
+  id: '__root__' | '/' | '/chat' | '/book/$id' | '/dibias/$id' | '/dibias/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ChatRoute: typeof ChatRoute
+  BookIdRoute: typeof BookIdRoute
+  DibiasIdRoute: typeof DibiasIdRoute
+  DibiasIndexRoute: typeof DibiasIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +95,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dibias/': {
+      id: '/dibias/'
+      path: '/dibias'
+      fullPath: '/dibias/'
+      preLoaderRoute: typeof DibiasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dibias/$id': {
+      id: '/dibias/$id'
+      path: '/dibias/$id'
+      fullPath: '/dibias/$id'
+      preLoaderRoute: typeof DibiasIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/book/$id': {
+      id: '/book/$id'
+      path: '/book/$id'
+      fullPath: '/book/$id'
+      preLoaderRoute: typeof BookIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ChatRoute: ChatRoute,
+  BookIdRoute: BookIdRoute,
+  DibiasIdRoute: DibiasIdRoute,
+  DibiasIndexRoute: DibiasIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
