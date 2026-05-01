@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Send, Sparkles } from "lucide-react";
-import { detectCategories, dibiasByCategory, type Category } from "@/data/dibias";
+import { detectCategories, dibiasByCategory, categoryLabel, type Category } from "@/data/dibias";
 
 export const Route = createFileRoute("/chat")({
   head: () => ({
@@ -23,14 +23,18 @@ type Msg = {
 };
 
 const FOLLOWUPS: Record<Category, string[]> = {
-  "Business & Prosperity": ["How long has this struggle with money or business been going on?", "Have you noticed sudden blockages where things used to flow?"],
-  "Love & Relationships": ["Is this about someone specific, or a longing in your heart?", "Have you had strange dreams about this person recently?"],
-  "Spiritual Cleansing": ["When did things begin to shift? Was there a moment, a place, a person?", "Do you feel a heaviness that won't lift, even after rest?"],
-  "Protection & Security": ["Do you feel watched, or that someone wishes you harm?", "Has anything strange happened around your home or family?"],
-  "Fertility & Childbirth": ["Have you been on this journey for some time?", "Would you like guidance with herbs, or with prayer and ritual?"],
-  "Healing Herbs": ["Tell me a little more — where in the body, and for how long?", "Have you tried any remedies already?"],
-  "Dream Interpretation": ["Was the dream recent? Do you remember any colours or animals?", "Did it leave you feeling afraid, peaceful, or stirred?"],
-  "Ancestral Guidance": ["Whose voice do you wish to hear — father's side, mother's side?", "Is there a question you've been carrying that they may answer?"],
+  "Dibia Akụ na Ụba": ["How long has this struggle with money or business been going on?", "Have you noticed sudden blockages where things used to flow?"],
+  "Dibia Ịhụnanya": ["Is this about someone specific, or a longing in your heart?", "Have you had strange dreams about this person recently?"],
+  "Dibia Mmụọ": ["When did things begin to shift? Was there a moment, a place, a person?", "Do you feel a heaviness that won't lift, even after rest?"],
+  "Dibia Ifu Ụzọ": ["Do you feel watched, or that someone wishes you harm?", "Has anything strange happened around your home or family?"],
+  "Dibia Ọmụgwọ": ["Have you been on this journey for some time?", "Would you like guidance with herbs, or with prayer and ritual?"],
+  "Dibia Mgborogwu na Mkpa Akwụkwọ": ["Tell me a little more — where in the body, and for how long?", "Have you tried any remedies already?"],
+  "Dibia Ọkpụkpụ": ["Where on the body — and how did it happen?", "How long ago did the injury occur?"],
+  "Dibia Nrọ": ["Was the dream recent? Do you remember any colours or animals?", "Did it leave you feeling afraid, peaceful, or stirred?"],
+  "Dibia Afa": ["What question would you most like the Afa to answer?", "Has this concern been with you for long?"],
+  "Dibia Aja": ["Has someone advised you that an offering is needed?", "Is there a particular deity or ancestor you feel called to honour?"],
+  "Dibia Mmiri": ["Do you feel drawn to water, or troubled by it in dreams?", "Has fortune in your home felt blocked of late?"],
+  "Dibia Ọgwụ": ["What kind of protection or medicine do you feel you need?", "Has someone wished you harm recently?"],
 };
 
 const GREETING = "Ndeewo. I am Chi. 🌿 Sit, take a breath, and tell me what is troubling you. Speak as you would to a kind elder — I am listening.";
