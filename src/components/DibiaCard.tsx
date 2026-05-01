@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Star, MapPin, BadgeCheck } from "lucide-react";
 import type { Dibia } from "@/data/dibias";
-import { naira } from "@/data/dibias";
+import { naira, categoryInfo } from "@/data/dibias";
 
 const initialsColors = [
   "from-[oklch(0.55_0.16_35)] to-[oklch(0.78_0.15_85)]",
