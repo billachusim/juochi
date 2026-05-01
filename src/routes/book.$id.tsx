@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { getDibia, naira, type Service } from "@/data/dibias";
+import { getDibia, naira, type Service, type Dibia } from "@/data/dibias";
 import { Check, CalendarCheck, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/book/$id")({
