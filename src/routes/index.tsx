@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { DibiaCard } from "@/components/DibiaCard";
-import { DIBIAS, ALL_CATEGORIES } from "@/data/dibias";
+import { DIBIAS, CATEGORY_INFO } from "@/data/dibias";
 import { MessageCircle, Sparkles, UserCheck, CalendarCheck, ShieldCheck } from "lucide-react";
 import heroImage from "@/assets/hero-shrine.jpg";
 
@@ -18,16 +18,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const categoryIcons: Record<string, string> = {
-  "Spiritual Cleansing": "🕯️",
-  "Love & Relationships": "❤️‍🔥",
-  "Business & Prosperity": "💰",
-  "Protection & Security": "🛡️",
-  "Fertility & Childbirth": "🌱",
-  "Healing Herbs": "🌿",
-  "Dream Interpretation": "🌙",
-  "Ancestral Guidance": "🪶",
-};
+// Categories now come from CATEGORY_INFO with authentic Igbo names + English
 
 function Index() {
   return (
@@ -90,19 +81,20 @@ function Index() {
       {/* Categories */}
       <section className="container mx-auto px-4 py-16">
         <div className="text-center mb-10">
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-3">What do you seek?</h2>
-          <p className="text-muted-foreground">Eight paths the Dibias walk.</p>
+          <h2 className="font-display text-4xl md:text-5xl font-bold mb-3">Ụzọ ole ka ị na-achọ?</h2>
+          <p className="text-muted-foreground">What do you seek? Twelve paths the Dibịas walk.</p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {ALL_CATEGORIES.map((c) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {CATEGORY_INFO.map((c) => (
             <Link
-              key={c}
+              key={c.id}
               to="/dibias"
-              search={{ category: c }}
-              className="rounded-2xl bg-card border border-border p-6 text-center hover:border-gold hover:-translate-y-1 transition"
+              search={{ category: c.id }}
+              className="group rounded-2xl bg-card border border-border p-6 text-center hover:border-gold hover:-translate-y-1 transition"
             >
-              <div className="text-4xl mb-3">{categoryIcons[c]}</div>
-              <p className="font-display text-base">{c}</p>
+              <div className="text-4xl mb-3">{c.icon}</div>
+              <p className="font-display text-base text-gold leading-tight">{c.igbo}</p>
+              <p className="text-xs text-muted-foreground mt-1">{c.english}</p>
             </Link>
           ))}
         </div>

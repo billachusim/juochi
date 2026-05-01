@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { getDibia, naira } from "@/data/dibias";
+import { getDibia, naira, categoryLabel, type Dibia, type Service } from "@/data/dibias";
 import { Star, MapPin, BadgeCheck, Award, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/dibias/$id")({
@@ -33,8 +33,8 @@ export const Route = createFileRoute("/dibias/$id")({
 });
 
 function ProfilePage() {
-  const { dibia } = Route.useLoaderData();
-  const initials = dibia.name.split(" ").map((p) => p[0]).join("").slice(0, 2);
+  const { dibia } = Route.useLoaderData() as { dibia: Dibia };
+  const initials = dibia.name.split(" ").map((p: string) => p[0]).join("").slice(0, 2);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -72,8 +72,8 @@ function ProfilePage() {
 
             <div className="flex flex-wrap gap-2">
               {dibia.specializations.map((s) => (
-                <span key={s} className="text-xs uppercase tracking-wider px-3 py-1.5 rounded-full bg-secondary text-secondary-foreground border border-border">
-                  {s}
+                <span key={s} className="text-xs px-3 py-1.5 rounded-full bg-secondary text-secondary-foreground border border-border">
+                  {categoryLabel(s)}
                 </span>
               ))}
             </div>
@@ -86,7 +86,7 @@ function ProfilePage() {
             <div>
               <h2 className="font-display text-2xl mb-4">Services</h2>
               <div className="space-y-3">
-                {dibia.services.map((s) => (
+                {dibia.services.map((s: Service) => (
                   <div key={s.name} className="rounded-xl border border-border bg-card p-4 flex items-center justify-between gap-4">
                     <div>
                       <p className="font-semibold">{s.name}</p>

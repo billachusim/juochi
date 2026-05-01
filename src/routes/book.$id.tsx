@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { getDibia, naira, type Service } from "@/data/dibias";
+import { getDibia, naira, type Service, type Dibia } from "@/data/dibias";
 import { Check, CalendarCheck, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/book/$id")({
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/book/$id")({
 });
 
 function BookPage() {
-  const { dibia } = Route.useLoaderData();
+  const { dibia } = Route.useLoaderData() as { dibia: Dibia };
   const [step, setStep] = useState<1 | 2 | 3 | 4 | 5>(1);
   const [service, setService] = useState<Service | null>(dibia.services[0] ?? null);
   const [date, setDate] = useState("");
@@ -89,7 +89,7 @@ function BookPage() {
             <>
               <h2 className="font-display text-xl">Choose a service</h2>
               <div className="space-y-2">
-                {dibia.services.map((s) => (
+                {dibia.services.map((s: Service) => (
                   <button
                     key={s.name}
                     onClick={() => setService(s)}

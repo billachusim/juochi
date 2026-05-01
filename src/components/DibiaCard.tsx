@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Star, MapPin, BadgeCheck } from "lucide-react";
 import type { Dibia } from "@/data/dibias";
-import { naira } from "@/data/dibias";
+import { naira, categoryInfo } from "@/data/dibias";
 
 const initialsColors = [
   "from-[oklch(0.55_0.16_35)] to-[oklch(0.78_0.15_85)]",
@@ -38,11 +38,14 @@ export function DibiaCard({ dibia }: { dibia: Dibia }) {
           <span className="inline-flex items-center gap-1"><MapPin className="h-3 w-3" />{dibia.location}</span>
         </div>
         <div className="flex flex-wrap gap-1.5">
-          {dibia.specializations.slice(0, 2).map((s) => (
-            <span key={s} className="text-[10px] uppercase tracking-wider px-2 py-1 rounded-full bg-secondary text-secondary-foreground">
-              {s}
-            </span>
-          ))}
+          {dibia.specializations.slice(0, 2).map((s) => {
+            const info = categoryInfo(s);
+            return (
+              <span key={s} className="text-[10px] px-2 py-1 rounded-full bg-secondary text-secondary-foreground" title={info.english}>
+                {info.icon} {info.short}
+              </span>
+            );
+          })}
         </div>
         <div className="flex items-center justify-between pt-2 border-t border-border">
           <span className="text-xs text-muted-foreground">From</span>
