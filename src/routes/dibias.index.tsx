@@ -3,7 +3,7 @@ import { useState, useMemo } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { DibiaCard } from "@/components/DibiaCard";
-import { DIBIAS, ALL_CATEGORIES, type Category } from "@/data/dibias";
+import { DIBIAS, CATEGORY_INFO, type Category } from "@/data/dibias";
 
 type Search = { category?: Category };
 
@@ -53,8 +53,8 @@ function BrowsePage() {
                 onChange={(e) => setCategory(e.target.value as Category | "all")}
                 className="w-full rounded-lg bg-input border border-border px-3 py-2 text-sm outline-none focus:border-gold"
               >
-                <option value="all">All</option>
-                {ALL_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                <option value="all">All specializations</option>
+                {CATEGORY_INFO.map((c) => <option key={c.id} value={c.id}>{c.igbo} ({c.english})</option>)}
               </select>
             </div>
 
