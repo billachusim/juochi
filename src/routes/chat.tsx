@@ -90,21 +90,22 @@ function ChatPage() {
       if (turn === 0 && cats.length > 0) {
         const followups = FOLLOWUPS[cats[0]];
         const q = followups[Math.floor(Math.random() * followups.length)];
-        reply = { role: "chi", text: `I hear you, my child. This sounds like a matter of **${cats[0]}**.\n\n${q}` };
+        reply = { role: "chi", text: `I hear you, my child. This sounds like a matter for **${categoryLabel(cats[0])}**.\n\n${q}` };
       } else if (cats.length > 0) {
+        const labels = cats.map(categoryLabel).join(" and ");
         reply = {
           role: "chi",
-          text: `Thank you for sharing. I have listened carefully.\n\nFor what you carry, I would guide you toward Dibias who walk the path of **${cats.join(" and ")}**. They are wise, verified, and have helped many others like you.`,
+          text: `Thank you for sharing. I have listened carefully.\n\nFor what you carry, I would guide you toward **${labels}**. They are wise, verified, and have helped many others like you.`,
           categories: cats,
           showRecommend: true,
         };
       } else if (turn === 0) {
-        reply = { role: "chi", text: "Take your time. Tell me a little more — is it about money, love, your health, dreams, or something else weighing on your spirit?" };
+        reply = { role: "chi", text: "Take your time. Tell me a little more — is it about money (akụ), love (ịhụnanya), your health, dreams (nrọ), or something else weighing on your spirit?" };
       } else {
         reply = {
           role: "chi",
           text: "Whatever the shape of your trouble, our Dibias are here. Browse them and one will speak to your heart.",
-          categories: ["Ancestral Guidance"],
+          categories: ["Dibia Afa"],
           showRecommend: true,
         };
       }
